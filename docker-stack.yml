@@ -22,7 +22,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: docker_practice_v3
-
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+     
   app:
     depends_on:
       - db
