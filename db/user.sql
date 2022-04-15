@@ -1,5 +1,5 @@
-CREATE DATABASE docker_practice_v3;
-use docker_practice_v3;
+CREATE DATABASE docker;
+use docker;
 
 CREATE TABLE `usertable` (
   `id` int NOT NULL AUTO_INCREMENT,
