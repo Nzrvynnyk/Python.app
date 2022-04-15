@@ -1,0 +1,28 @@
+version: "3"
+services:
+  app:
+    build: ./app
+    links:
+      - db
+    ports:
+      - "5000:5000"
+    depends_on: 
+      - db
+
+  db_master:
+    image: mysql:8.0.25
+    ports:
+      - "30000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db-master:/docker-entrypoint-initdb.d/:ro
+
+    db_slave:
+    image: mysql:8.0.25
+    ports:
+      - "30000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db-slave:/docker-entrypoint-initdb.d/:ro    
