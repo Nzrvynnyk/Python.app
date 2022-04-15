@@ -21,9 +21,9 @@ services:
       - appnet
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: docker_practice_v3
+      MYSQL_DATABASE: docker
     volumes:
-      - ./db:/docker-entrypoint-initdb.d/:ro
+      - /db:/docker-entrypoint-initdb.d/:ro
      
   app:
     depends_on:
