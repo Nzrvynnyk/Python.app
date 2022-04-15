@@ -4,7 +4,7 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@db/docker_practice_v3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@db/docker'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
