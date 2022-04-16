@@ -26,6 +26,7 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
+    
 
      
   app:
@@ -47,6 +48,10 @@ services:
 networks:
   appnet:
    driver: overlay
+
+volumes:
+  db:
+
 
 
 
