@@ -14,9 +14,6 @@ services:
         delay: 10s
         max_failure_ratio: 0.3
     image: mysql:8.0.25
-    placement:
-      constraints:
-        - node.role == manager    
     privileged: true
     ports:
       - "30000:3306"
@@ -26,6 +23,9 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    deploy:
+      placement:
+        constraints: [node.role == manager]
 
      
   app:
