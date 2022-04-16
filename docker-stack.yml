@@ -14,7 +14,9 @@ services:
         delay: 10s
         max_failure_ratio: 0.3
     image: mysql:8.0.25
-      - node.role == manager 
+    placement:
+      constraints:
+        - node.role == manager    
     privileged: true
     ports:
       - "30000:3306"
