@@ -22,7 +22,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    
 
      
   app:
