@@ -1,24 +1,60 @@
-pipeline{
-    agent { 
-       any
-    }  
+pipeline {
+    agent {
+        label 'master'
+    }
+
+    options {
+        skipDefaultCheckout true
+        timestamps()
+    }
+
+    environment {
+        IMAGE_NAME="python.app"
+        //REGISTRY_HOST="docker.io"
+    }
+
+    parameters {
+        gitParameter branch: '',
+                branchFilter: 'origin/(.*)',
+                defaultValue: 'master',
+                description: '',
+                name: 'branchName',
+                quickFilterEnabled: true,
+                selectedValue: 'DEFAULT',
+                sortMode: 'ASCENDING_SMART',
+                tagFilter: '*',
+                type: 'PT_BRANCH_TAG'
+    }
+
     stages {
-        stage('git checkout'){
-            steps{
-                git branch: 'main', url: 'https://github.com/Nzrvynnyk/Python.app'
+        stage ('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: params.branchName ]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Nzrvynnyk/Python.app.git']]])
             }
         }
-        stage("Docker Image"){
-            steps{
-                sh "docker build -t nvynnyk/python-projectnzrb:latest ."
-            }
-        }
-        stage("Docker Push"){
-            steps{
-                withCredentials([usernamePassword(credentialsId: 'docker_credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-                    sh "docker login -u ${username} -p ${password}"
+
+
+        stage ('Docker Image Build/Push') {    
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: "dockerhub") {
+                        sh "docker build -t ${IMAGE_NAME} -f Dockerfile ." 
+                        sh "docker tag ${IMAGE_NAME}:latest nvynnyk/${IMAGE_NAME}:latest"
+                        sh "docker push nvynnyk/${IMAGE_NAME}:latest"
+                    }
                 }
-                sh "docker push nvynnyk/python-projectnzrb:latest ."
+            }
+            
+        }
+        stage ('Docker deploy swarm'){
+            steps {
+                script  {
+                    sh "docker stack deploy -c docker-stack.yml latest"
+                }
             }
         }
-    }        
+
+
+    }
+    
+}
