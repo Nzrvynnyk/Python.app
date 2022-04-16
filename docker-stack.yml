@@ -22,7 +22,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - /var/jenkins_home/workspace/Swarm
+      - /var/run/docker.sock:/var/run/docker.sock      
       - ./db:/docker-entrypoint-initdb.d/:ro    
     deploy:
       placement:
