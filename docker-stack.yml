@@ -21,7 +21,8 @@ services:
       - appnet
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: docker
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
      
   app:
