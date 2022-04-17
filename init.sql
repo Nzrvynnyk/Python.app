@@ -13,8 +13,7 @@ CREATE TABLE `usertable` (
 insert  into `usertable`(`id`,`firstname`,`lastname`,`email`,`number`) values
 (1,'Test1','User','test1.user@mail.com', 09835347484),
 (2,'Test2','User2','test2.user@mail.com',34256780),
-(2,'Test2','User3','test2.user@mail.com',34256780),
-(2,'Test2','User4','test2.user@mail.com',34256780),
-(2,'Test2','User5','test2.user@mail.com',34256780);
+(3,'Test2','User3','test2.user@mail.com',34256780);
+
 
 
