@@ -21,8 +21,6 @@ services:
       - appnet
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: docker
-      MYSQL_USER: root
     volumes:
        - db-data:/var/lib/mysql
     configs:
