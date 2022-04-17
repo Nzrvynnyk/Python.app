@@ -21,10 +21,14 @@ services:
       - appnet
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: docker
+      MYSQL_USER: root
     volumes:
-      - /db/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - /var/run/docker.sock:/var/run/docker.sock      
-      - ./db:/docker-entrypoint-initdb.d/:ro    
+       - db-data:/var/lib/mysql
+    configs:
+       - source: table
+         target: /docker-entrypoint-initdb.d/init.sql
+      
 
     
 
@@ -50,7 +54,11 @@ networks:
    driver: overlay
 
 volumes:
-  db:
+    db-data:
+
+configs:
+    table:
+        file: ./init.sql
 
 
 
