@@ -50,8 +50,7 @@ pipeline {
             steps {
                 script  {
                     sh " docker stack rm latest"
-                sleep(100) {
-                }    
+                sleep(100)     
                     sh "docker stack deploy -c docker-stack.yml latest"
                 }
             }
