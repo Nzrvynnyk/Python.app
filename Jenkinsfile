@@ -49,6 +49,9 @@ pipeline {
         stage ('Docker deploy swarm'){
             steps {
                 script  {
+                    sh " docker stack rm latest"
+                sleep(100) {
+                }    
                     sh "docker stack deploy -c docker-stack.yml latest"
                 }
             }
