@@ -1,5 +1,2 @@
 # Python.app
-21312
-341461
-qweqq
-dajshaks
+Create a simple python SKUD FLASK project.
